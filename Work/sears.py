@@ -16,7 +16,7 @@ print('Number of days:', day)
 print('Number of bills:', num_bills)
 print('Final height:', num_bills * bill_thick)
 
-if num_bills < money_i_have:
+if num_bills <= money_i_have:
     print("Do it!")
 else:
     print("Go to find enough money pls")
