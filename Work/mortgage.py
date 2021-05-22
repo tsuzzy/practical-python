@@ -3,15 +3,16 @@
 # Exercise 1.7
 
 principal = 500000
-rate_year = 0.05
-rate_month = rate_year/12
-payment_month = 2684.11
-payment_year = payment_month * 12
+rate = 0.05/12
 payment_sum = 0;
 months = 0;
 
 while principal > 0:
-    principal = principal * (1 + rate_month) - payment_month
+    if months < 12:
+        payment_month = 3684.11
+    else:
+        payment_month = 2684.11
+    principal = principal * (1 + rate) - payment_month
     payment_sum += payment_month
     months += 1
 
