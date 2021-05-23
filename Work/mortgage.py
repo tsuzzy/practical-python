@@ -1,6 +1,4 @@
 # mortgage.py
-#
-# Exercise 1.7
 
 principal = 500000
 rate = 0.05/12
@@ -22,11 +20,11 @@ while principal > 0:
         payment_sum += payment
     months += 1
     if principal > 0:
-        print(months, round(payment_sum,2), round(principal,2))
+        print(f'{months}  {round(payment_sum,2)}  {round(principal,2)}')
     else:
         payment_sum = payment_sum + principal
-        print(months, round(payment_sum, 2), 0)
+        print(f'{months}  {round(payment_sum,2)}  0')
 
 
-print('Total paid', round(payment_sum,2))
-print('Pay how many months', months)
+print(f'Total paid {round(payment_sum,2)}')
+print(f'Pay how many months {months}')
