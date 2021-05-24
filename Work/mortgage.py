@@ -12,6 +12,8 @@ extra_payment_end_month = 108
 extra_payment = 1000
 
 while principal > 0:
+    # adding extra payment to the base payment
+    # if during extra payment months
     if (months>=extra_payment_start_month) and (months<=extra_payment_end_month):
         principal = principal * (1 + rate) - payment - extra_payment
         payment_sum += payment + extra_payment
@@ -19,6 +21,7 @@ while principal > 0:
         principal = principal * (1 + rate) - payment
         payment_sum += payment
     months += 1
+    # avoiding the potential overpayment
     if principal > 0:
         print(f'{months}  {round(payment_sum,2)}  {round(principal,2)}')
     else:
