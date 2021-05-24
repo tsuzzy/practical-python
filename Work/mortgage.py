@@ -11,6 +11,9 @@ extra_payment_start_month = 61
 extra_payment_end_month = 108
 extra_payment = 1000
 
+# Output headline
+print("Times  Total paid   Principal")
+
 while principal > 0:
     # adding extra payment to the base payment
     # if during extra payment months
@@ -23,10 +26,10 @@ while principal > 0:
     months += 1
     # avoiding the potential overpayment
     if principal > 0:
-        print(f'{months}  {round(payment_sum,2)}  {round(principal,2)}')
+        print(f'{months}      {round(payment_sum,2)}      {round(principal,2)}')
     else:
         payment_sum = payment_sum + principal
-        print(f'{months}  {round(payment_sum,2)}  0')
+        print(f'{months}      {round(payment_sum,2)}      0')
 
 
 print(f'Total paid {round(payment_sum,2)}')
