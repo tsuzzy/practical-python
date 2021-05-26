@@ -1,6 +1,6 @@
 # report.py
 #
-# Exercise 2.4
+# Exercise 2.6
 import csv
 
 def read_portfolio(filename):
@@ -17,4 +17,14 @@ def read_portfolio(filename):
             portfolio.append(holding)
     return portfolio
 
-# portfolio is a list of dictionaries
+def read_prices(filename):
+    prices = {} # init an empty dict
+    with open(filename, 'rt') as f:
+        rows = csv.reader(f)
+        for row in rows:
+            try:
+                prices[row[0]] = float(row[1])
+                print("Successfully added to dict.")
+            except:
+                print("Empty line, can't add to dict!")
+    return prices
