@@ -7,10 +7,14 @@ def read_portfolio(filename):
     portfolio = []
     with open(filename, 'rt') as f:
         rows = csv.reader(f)
-        next(rows)
+        header = next(rows)
         for row in rows:
-            holding = (row[0], int(row[1]), float(row[2]))
+            holding = { # dict
+                header[0]: row[0],
+                header[1]: int(row[1]),
+                header[2]: float(row[2])
+            }
             portfolio.append(holding)
     return portfolio
 
-# portfolio is a list of tuples
+# portfolio is a list of dictionaries
