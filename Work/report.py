@@ -61,7 +61,8 @@ def make_report(portfolio, prices):
     print(separator)
 
     for name, shares, price, chg in report: # Formatted table
-        print(f'{name:>10s} {shares:>10d} {price:>10.2f} {chg:>10.2f}')
+        dollar = '$'+str(round(price,2)) # converting price from floating-point to string
+        print(f'{name:>10s} {shares:>10d} {dollar:>10s} {chg:>10.2f}')
 
 
 portfolio = read_portfolio('Data/portfolio.csv')
