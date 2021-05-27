@@ -1,6 +1,6 @@
 # report.py
 #
-# Exercise 2.12
+# Exercise 2.16
 import csv
 
 def read_portfolio(filename):
@@ -8,12 +8,13 @@ def read_portfolio(filename):
     with open(filename, 'rt') as f:
         rows = csv.reader(f)
         header = next(rows)
-        for row in rows:
-            holding = { # dict
-                header[0]: row[0],
-                header[1]: int(row[1]),
-                header[2]: float(row[2])
-            }
+        for rowno,row in enumerate(rows, start=1):
+            holding = dict(zip(header, row))
+            # holding = { # dict
+            #     header[0]: row[0],
+            #     header[1]: int(row[1]),
+            #     header[2]: float(row[2])
+            # }
             portfolio.append(holding)
     return portfolio
 
@@ -49,8 +50,8 @@ def make_report(portfolio, prices):
     report = []
     for d in portfolio:
         if d['name'] in prices:
-            change = prices[d['name']] - d['price']
-            record = (d['name'], d['shares'], prices[d['name']], change)
+            change = prices[d['name']] - float(d['price'])
+            record = (d['name'], int(d['shares']), prices[d['name']], change)
             report.append(record)
     
     headers = ('Name', 'Shares', 'Price', 'Change')
@@ -65,7 +66,7 @@ def make_report(portfolio, prices):
         print(f'{name:>10s} {shares:>10d} {dollar:>10s} {chg:>10.2f}')
 
 
-portfolio = read_portfolio('Data/portfolio.csv')
+portfolio = read_portfolio('Data/portfoliodate.csv') # change file, output as the same
 prices = read_prices('Data/prices.csv')
 
 make_report(portfolio, prices)
