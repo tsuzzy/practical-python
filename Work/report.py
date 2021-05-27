@@ -1,6 +1,6 @@
 # report.py
 #
-# Exercise 2.9
+# Exercise 2.10
 import csv
 
 def read_portfolio(filename):
@@ -17,6 +17,7 @@ def read_portfolio(filename):
             portfolio.append(holding)
     return portfolio
 
+
 def read_prices(filename):
     prices = {} # init an empty dict
     with open(filename, 'rt') as f:
@@ -25,12 +26,11 @@ def read_prices(filename):
             try:
                 prices[row[0]] = float(row[1])
             except:
-                print("Empty line, can't add to dict!")
+                print("Function read_prices() EXCEPTION: empty line, can't add to dict!")
     return prices
 
-def gain_loss():
-    portfolio = read_portfolio('Data/portfolio.csv')
-    prices = read_prices('Data/prices.csv')
+
+def gain_loss(portfolio, prices):
     total = 0.0
     for s in portfolio:
         if s['name'] in prices:
@@ -44,6 +44,7 @@ def gain_loss():
             total += profit
     print(f'Your total gain/loss is {total: 0.2f}')
 
+
 def make_report(portfolio, prices):
     report = []
     for d in portfolio:
@@ -51,4 +52,11 @@ def make_report(portfolio, prices):
             change = prices[d['name']] - d['price']
             record = (d['name'], d['shares'], prices[d['name']], change)
             report.append(record)
-    return report
+    for name, shares, price, chg in report: # Formatted table
+        print(f'{name:>10s} {shares:>10d} {price:>10.2f} {chg:>10.2f}')
+
+
+portfolio = read_portfolio('Data/portfolio.csv')
+prices = read_prices('Data/prices.csv')
+
+make_report(portfolio, prices)
