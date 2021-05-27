@@ -1,6 +1,6 @@
 # report.py
 #
-# Exercise 2.7
+# Exercise 2.9
 import csv
 
 def read_portfolio(filename):
@@ -44,4 +44,11 @@ def gain_loss():
             total += profit
     print(f'Your total gain/loss is {total: 0.2f}')
 
-gain_loss()
+def make_report(portfolio, prices):
+    report = []
+    for d in portfolio:
+        if d['name'] in prices:
+            change = prices[d['name']] - d['price']
+            record = (d['name'], d['shares'], prices[d['name']], change)
+            report.append(record)
+    return report
