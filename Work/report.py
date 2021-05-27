@@ -1,6 +1,6 @@
 # report.py
 #
-# Exercise 2.10
+# Exercise 2.11
 import csv
 
 def read_portfolio(filename):
@@ -52,6 +52,14 @@ def make_report(portfolio, prices):
             change = prices[d['name']] - d['price']
             record = (d['name'], d['shares'], prices[d['name']], change)
             report.append(record)
+    
+    headers = ('Name', 'Shares', 'Price', 'Change')
+    header_str = f'{headers[0]:>10s} {headers[1]:>10s} {headers[2]:>10s} {headers[3]:>10s}'
+    print(header_str)
+
+    separator = '---------- ---------- ---------- ----------'
+    print(separator)
+
     for name, shares, price, chg in report: # Formatted table
         print(f'{name:>10s} {shares:>10d} {price:>10.2f} {chg:>10.2f}')
 
