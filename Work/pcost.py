@@ -10,12 +10,12 @@ def portfolio_cost(filename):
         # skipping the headline
         next(rows)
         cost = 0.0
-        for row in rows:
+        for rowno,row in enumerate(rows, start=1):
             try:
                 shares = int(row[1])
                 price = float(row[2])
             except ValueError:
-                print("This line missing something, couldn't be parsed:", row)
+                print(f'Row {rowno}: Bad row: {row}')
             cost += shares * price
     return cost
 
