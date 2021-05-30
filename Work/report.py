@@ -1,6 +1,6 @@
 # report.py
 #
-# Exercise 2.16
+# Exercise 3.1
 import csv
 
 def read_portfolio(filename):
@@ -26,22 +26,10 @@ def read_prices(filename):
     return prices
 
 
-def gain_loss(portfolio, prices):
-    total = 0.0
-    for s in portfolio:
-        if s['name'] in prices:
-            current_price = prices[s['name']]
-            buy_price = s['price']
-            profit = (current_price - buy_price) * s['shares']
-            if profit > 0:
-                print(f'You gain {profit: 0.2f} in the stock', s['name'], ', you have been closer to retire! :D')
-            else:
-                print(f'You lost {profit: 0.2f} in the stock', s['name'])
-            total += profit
-    print(f'Your total gain/loss is {total: 0.2f}')
-
-
 def make_report(portfolio, prices):
+    '''
+    Make reports
+    '''
     report = []
     for d in portfolio:
         if d['name'] in prices:
@@ -56,6 +44,13 @@ def make_report(portfolio, prices):
     separator = '---------- ---------- ---------- ----------'
     print(separator)
 
+    return report
+
+
+def print_report(report):
+    '''
+    Output the report
+    '''
     for name, shares, price, chg in report: # Formatted table
         dollar = '$'+str(round(price,2)) # converting price from floating-point to string
         print(f'{name:>10s} {shares:>10d} {dollar:>10s} {chg:>10.2f}')
@@ -64,4 +59,4 @@ def make_report(portfolio, prices):
 portfolio = read_portfolio('Data/portfoliodate.csv') # change file, output as the same
 prices = read_prices('Data/prices.csv')
 
-make_report(portfolio, prices)
+print_report(make_report(portfolio, prices))
