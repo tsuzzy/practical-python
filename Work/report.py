@@ -1,6 +1,6 @@
 # report.py
 #
-# Exercise 3.1
+# Exercise 3.2
 import csv
 
 def read_portfolio(filename):
@@ -22,7 +22,7 @@ def read_prices(filename):
             try:
                 prices[row[0]] = float(row[1])
             except:
-                print("Function read_prices() EXCEPTION: empty line, can't add to dict!")
+                pass
     return prices
 
 
@@ -56,7 +56,10 @@ def print_report(report):
         print(f'{name:>10s} {shares:>10d} {dollar:>10s} {chg:>10.2f}')
 
 
-portfolio = read_portfolio('Data/portfoliodate.csv') # change file, output as the same
-prices = read_prices('Data/prices.csv')
-
-print_report(make_report(portfolio, prices))
+def portfolio_report(portfolio_file,prices_file):
+    '''
+    Merge the functions into the top-level function
+    '''
+    portfolio = read_portfolio(portfolio_file)
+    prices = read_prices(prices_file)
+    print_report(make_report(portfolio, prices))
