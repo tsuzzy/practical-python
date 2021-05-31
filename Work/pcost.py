@@ -1,23 +1,25 @@
 # pcost.py
 #
-# Exercise 2.16
-import csv
+# Exercise 3.14
+
+# Strange instruction, 
+# we just discard report.read_portfolio() in 3.12
+# and use fileparse.parse_csv() instead.
+
+# Therefore, to generalize the models, 
+# in this exercise, I use fileparse.parse_csv()
+
 import sys
+from fileparse import parse_csv
 
 def portfolio_cost(filename):
-    with open(filename, 'rt') as f:
-        rows = csv.reader(f)
-        # skipping the headline
-        headers = next(rows)
-        cost = 0.0
-        for rowno,row in enumerate(rows, start=1):
-            record = dict(zip(headers, row))
-            try:
-                shares = int(record['shares'])
-                price = float(record['price'])
-                cost += shares * price
-            except ValueError:
-                print(f'Row {rowno}: Bad row: {row}')
+    records = parse_csv(filename, types=[str,int,float])
+    cost = 0.0
+    for record in records:
+        try:
+            cost += record['shares'] * record['price']
+        except ValueError as e:
+            print(f'Error occurs: {e}')
     return cost
 
 # reading filename from command line
