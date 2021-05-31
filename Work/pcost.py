@@ -1,11 +1,11 @@
 # pcost.py
 #
-# Exercise 3.16
+# Exercise 3.18
 
 from fileparse import parse_csv
 
 def portfolio_cost(filename):
-    records = parse_csv(filename, types=[str,int,float])
+    records = parse_csv(filename, types=[str,int,float], isFile=True)
     cost = 0.0
     for record in records:
         try:

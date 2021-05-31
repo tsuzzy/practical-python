@@ -1,7 +1,6 @@
 # report.py
 #
-# Exercise 3.16
-import sys
+# Exercise 3.18
 from fileparse import parse_csv
 
 def make_report(portfolio, prices):
@@ -46,8 +45,8 @@ def portfolio_report(portfoliofile, pricesfile):
     '''
     Merge the functions into the top-level function
     '''
-    portfolio = parse_csv(portfoliofile,types=[str,int,float])
-    prices = parse_csv(pricesfile,types=[str,float],has_headers=False)
+    portfolio = parse_csv(portfoliofile,types=[str,int,float],isFile=True)
+    prices = parse_csv(pricesfile,types=[str,float],has_headers=False,isFile=True)
     print_report(make_report(portfolio, prices))
 
 def main(argv):
