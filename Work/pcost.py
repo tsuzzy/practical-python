@@ -1,13 +1,6 @@
 # pcost.py
 #
-# Exercise 3.15
-
-# Strange instruction, 
-# we just discard report.read_portfolio() in 3.12
-# and use fileparse.parse_csv() instead.
-
-# Therefore, to generalize the models, 
-# in this exercise, I use fileparse.parse_csv()
+# Exercise 3.16
 
 from fileparse import parse_csv
 
