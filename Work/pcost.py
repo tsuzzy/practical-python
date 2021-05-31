@@ -1,6 +1,6 @@
 # pcost.py
 #
-# Exercise 3.14
+# Exercise 3.15
 
 # Strange instruction, 
 # we just discard report.read_portfolio() in 3.12
@@ -9,7 +9,6 @@
 # Therefore, to generalize the models, 
 # in this exercise, I use fileparse.parse_csv()
 
-import sys
 from fileparse import parse_csv
 
 def portfolio_cost(filename):
@@ -22,11 +21,16 @@ def portfolio_cost(filename):
             print(f'Error occurs: {e}')
     return cost
 
-# reading filename from command line
-if len(sys.argv) == 2:
-    filename = sys.argv[1]
-else:
-    filename = 'Data/portfolio.csv'
+def main(argv):
+    try:
+        portfolio_file = argv[1]
+    except:
+        portfolio_file = 'Data/portfolio.csv'
+        print(f'You didnt provide filename, using {portfolio_file} as default file.')
+    
+    cost = portfolio_cost(portfolio_file)
+    print(f'Total cost: {cost:>.2f}')
 
-cost = portfolio_cost(filename)
-print(f'Total cost: {cost:>.2f}')
+if __name__ == '__main__':
+    import sys
+    main(sys.argv)

@@ -1,6 +1,7 @@
 # report.py
 #
-# Exercise 3.12
+# Exercise 3.15
+import sys
 from fileparse import parse_csv
 
 def make_report(portfolio, prices):
@@ -41,13 +42,25 @@ def print_report(report):
         print(f'{name:>10s} {shares:>10d} {dollar:>10s} {chg:>10.2f}')
 
 
-def portfolio_report():
+def portfolio_report(portfoliofile, pricesfile):
     '''
     Merge the functions into the top-level function
     '''
-    portfolio = parse_csv('Data/portfolio.csv',types=[str,int,float])
-    prices = parse_csv('Data/prices.csv',types=[str,float],has_headers=False)
+    portfolio = parse_csv(portfoliofile,types=[str,int,float])
+    prices = parse_csv(pricesfile,types=[str,float],has_headers=False)
     print_report(make_report(portfolio, prices))
+
+def main(argv):
+    try:
+        portfolio_file = argv[1]
+        prices_file = argv[2]
+        portfolio_report(portfolio_file,prices_file)
+    except IndexError as e:
+        print(f'Reason: {e}, please use 3 arguments in command-line.')
+
+if __name__ == '__main__':
+    import sys
+    main(sys.argv)
 
 
 # Adding back retired read_portfolio() and read_prices()
