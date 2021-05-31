@@ -1,6 +1,6 @@
 # fileparse.py
 #
-# Exercise 3.8
+# Exercise 3.9
 import csv
 
 def parse_csv(filename, select=None, types=None, has_headers=True, delimiter=None):
@@ -28,12 +28,17 @@ def parse_csv(filename, select=None, types=None, has_headers=True, delimiter=Non
         else:
             indices = []
         
-        for row in rows:
+        for rowno,row in enumerate(rows, start=1):
             if not row:  # Skip rows without data
                 continue
             
             if types: # Map each element in row with a data type in the list "types"
-                row = [func(val) for func, val in zip(types, row)]
+                try:
+                    row = [func(val) for func, val in zip(types, row)]
+                except ValueError as e:
+                    print(f"Row {rowno}: Couldn't convert {row}")
+                    print(f"Row {rowno}: Reason {e}")
+                    continue # skip this error row
             
             if has_headers: # With headers, making a dictionary for records
                 if indices: # Filter the row if specific columns were selected
