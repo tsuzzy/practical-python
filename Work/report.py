@@ -51,6 +51,8 @@ def portfolio_report():
 
 
 # Adding back retired read_portfolio() and read_prices()
+import csv
+
 def read_portfolio(filename):
     portfolio = []
     with open(filename, 'rt') as f:
