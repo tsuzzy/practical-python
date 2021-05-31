@@ -1,9 +1,9 @@
 # fileparse.py
 #
-# Exercise 3.9
+# Exercise 3.10
 import csv
 
-def parse_csv(filename, select=None, types=None, has_headers=True, delimiter=None):
+def parse_csv(filename, select=None, types=None, has_headers=True, delimiter=None, silence_error=False):
     '''
     Parse a CSV file into a list of records
     '''
@@ -36,8 +36,11 @@ def parse_csv(filename, select=None, types=None, has_headers=True, delimiter=Non
                 try:
                     row = [func(val) for func, val in zip(types, row)]
                 except ValueError as e:
-                    print(f"Row {rowno}: Couldn't convert {row}")
-                    print(f"Row {rowno}: Reason {e}")
+                    if silence_error:
+                        pass
+                    else:
+                        print(f"Row {rowno}: Couldn't convert {row}")
+                        print(f"Row {rowno}: Reason {e}")
                     continue # skip this error row
             
             if has_headers: # With headers, making a dictionary for records
