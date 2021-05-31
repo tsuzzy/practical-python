@@ -48,3 +48,27 @@ def portfolio_report():
     portfolio = parse_csv('Data/portfolio.csv',types=[str,int,float])
     prices = parse_csv('Data/prices.csv',types=[str,float],has_headers=False)
     print_report(make_report(portfolio, prices))
+
+
+# Adding back retired read_portfolio() and read_prices()
+def read_portfolio(filename):
+    portfolio = []
+    with open(filename, 'rt') as f:
+        rows = csv.reader(f)
+        header = next(rows)
+        for rowno, row in enumerate(rows, start=1):
+            holding = dict(zip(header, row))
+            portfolio.append(holding)
+    return portfolio
+
+
+def read_prices(filename):
+    prices = {} # init an empty dict
+    with open(filename, 'rt') as f:
+        rows = csv.reader(f)
+        for row in rows:
+            try:
+                prices[row[0]] = float(row[1])
+            except:
+                pass
+    return prices
