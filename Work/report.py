@@ -1,40 +1,25 @@
 # report.py
 #
-# Exercise 3.2
-import csv
-
-def read_portfolio(filename):
-    portfolio = []
-    with open(filename, 'rt') as f:
-        rows = csv.reader(f)
-        header = next(rows)
-        for rowno, row in enumerate(rows, start=1):
-            holding = dict(zip(header, row))
-            portfolio.append(holding)
-    return portfolio
-
-
-def read_prices(filename):
-    prices = {} # init an empty dict
-    with open(filename, 'rt') as f:
-        rows = csv.reader(f)
-        for row in rows:
-            try:
-                prices[row[0]] = float(row[1])
-            except:
-                pass
-    return prices
-
+# Exercise 3.12
+from fileparse import parse_csv
 
 def make_report(portfolio, prices):
     '''
     Make reports
     '''
     report = []
+    
+    # Convert tuple to dictionary
+    price = {}
+    for r in prices:
+        name, cur_price = r
+        price[name] = cur_price
+    prices = price
+
     for d in portfolio:
         if d['name'] in prices:
-            change = prices[d['name']] - float(d['price'])
-            record = (d['name'], int(d['shares']), prices[d['name']], change)
+            change = prices[d['name']] - d['price']
+            record = (d['name'], d['shares'], prices[d['name']], change)
             report.append(record)
     
     headers = ('Name', 'Shares', 'Price', 'Change')
@@ -56,10 +41,10 @@ def print_report(report):
         print(f'{name:>10s} {shares:>10d} {dollar:>10s} {chg:>10.2f}')
 
 
-def portfolio_report(portfolio_file,prices_file):
+def portfolio_report():
     '''
     Merge the functions into the top-level function
     '''
-    portfolio = read_portfolio(portfolio_file)
-    prices = read_prices(prices_file)
+    portfolio = parse_csv('Data/portfolio.csv',types=[str,int,float])
+    prices = parse_csv('Data/prices.csv',types=[str,float],has_headers=False)
     print_report(make_report(portfolio, prices))
